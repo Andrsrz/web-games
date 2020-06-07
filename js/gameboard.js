@@ -13,12 +13,12 @@ const Gameboard = (() => {
 		myContext = myCanvas.getContext("2d");
 	}
 
-	const getRandomPositon = () => {
+	const getRandomPositon = (playerSize) => {
 		let position = [];
 		/* Fill position array */
 		for(let i = 0; i < 2; i++){
 			let min = Math.ceil(0);
-			let max = Math.floor(size[i]);
+			let max = Math.floor(size[i] - playerSize[i]);
 			position.push(Math.floor(Math.random() * (max - min)) + min);
 		}
 
@@ -26,8 +26,8 @@ const Gameboard = (() => {
 	}
 
 	const draw = () => {
-		player = Snake(getRandomPositon());
-		console.log(player.getPosition()[0]);
+		player = Snake();
+		player.setPosition(getRandomPositon(player.getSize()));
 		myContext.fillRect(player.getPosition()[0], player.getPosition()[1], player.getSize()[0], player.getSize()[1]);
 	}
 
