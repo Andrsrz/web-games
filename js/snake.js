@@ -1,5 +1,5 @@
 const Snake = (position) => {
-	var size = [50, 50];
+	var size = [15, 15];
 	var velocity = 1;
 
 	const getSize = () => size;
