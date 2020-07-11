@@ -56,6 +56,15 @@ const Gameboard = (() => {
 
 	document.addEventListener("keydown", keyDownHandler, false);
 
+	const drawPlayer = () => {
+		myContext.fillRect(player.getPosition()[0],
+						   player.getPosition()[1],
+						   player.getSize()[0],
+						   player.getSize()[1]);
+		/* Update position. Moving to the right. */
+		player.move(direction);
+	}
+
 	const draw = () => {
 		/* Check game over. */
 		if(isGameover()){
@@ -63,12 +72,7 @@ const Gameboard = (() => {
 			document.location.reload();
 		}
 		myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
-		myContext.fillRect(player.getPosition()[0],
-						   player.getPosition()[1],
-						   player.getSize()[0],
-						   player.getSize()[1]);
-		/* Update position. Moving to the right. */
-		player.move(direction);
+		drawPlayer();
 	}
 
 	const pageLoaded = () => {
