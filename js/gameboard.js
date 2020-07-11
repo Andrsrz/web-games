@@ -30,7 +30,23 @@ const Gameboard = (() => {
 		player.setPosition(getRandomPositon(player.getSize()));
 	}
 
+	const isGameover = () => {
+		if(player.getPosition()[0] > myCanvas.width ||
+		   player.getPosition()[0] < 0 ||
+		   player.getPosition()[1] > myCanvas.height ||
+		   player.getPosition()[1] < 0){
+			return "Game Over";
+		}else{
+			return false;
+		}
+	}
+
 	const draw = () => {
+		/* Check game over. */
+		if(isGameover()){
+			alert("GAME OVER");
+			document.location.reload();
+		}
 		myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
 		myContext.fillRect(player.getPosition()[0],
 						   player.getPosition()[1],
@@ -43,7 +59,7 @@ const Gameboard = (() => {
 	const pageLoaded = () => {
 		loadGameboard();
 		loadPlayer();
-		// setInterval(draw, 10);
+		setInterval(draw, 10);
 	}
 
 	return {pageLoaded};

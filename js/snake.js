@@ -23,8 +23,7 @@ class Snake{
 
 	move(direction){
 		if(direction === "Right"){
-			let x = this.position[0];
-			x++;
+			let x = this.position[0] + this.velocity;
 			let newPosition = [x, this.position[1]];
 			this.position = newPosition;
 		}
