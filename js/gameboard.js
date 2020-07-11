@@ -59,8 +59,10 @@ const Gameboard = (() => {
 				if((player.getPosition()[0] === fruitXCoord &&
 				   player.getPosition()[1] === fruitYCoord) ||
 				   (player.getPosition()[0] + player.getSize()[0] === fruitXCoord &&
-					player.getPosition()[1] + player.getSize()[1] === fruitYCoord))
+					player.getPosition()[1] + player.getSize()[1] === fruitYCoord)){
+					player.total++;
 					loadFruit();
+				}
 			}
 		}
 	}
@@ -80,14 +82,23 @@ const Gameboard = (() => {
 	document.addEventListener("keydown", keyDownHandler, false);
 
 	const drawPlayer = () => {
+		/* Update position. Moving to the right. */
+		player.move(direction);
+		detectCollision();
+
 		myContext.fillStyle = "#333333";
+
+		for(let i = 0; i < player.tail.length; i++){
+			console.log(player.tail[i].x);
+			console.log(player.tail[i].y);
+			myContext.fillRect(player.tail[i].x, player.tail[i].y,
+							   player.getSize()[0], player.getSize()[1]);
+		}
+
 		myContext.fillRect(player.getPosition()[0],
 						   player.getPosition()[1],
 						   player.getSize()[0],
 						   player.getSize()[1]);
-		/* Update position. Moving to the right. */
-		player.move(direction);
-		detectCollision();
 	}
 
 	const drawFruit = () => {

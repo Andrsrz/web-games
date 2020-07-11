@@ -3,6 +3,8 @@ class Snake{
 		this.size = [15, 15];
 		this.velocity = 1;
 		this.position = position ? position : [];
+		this.total = 0;
+		this.tail = [];
 	}
 
 	setPosition(newPosition){
@@ -25,9 +27,16 @@ class Snake{
 		let x = 0;
 		let y = 0;
 		let newPosition = [];
+
+		for(let i = 0; i < this.tail.length - 1; i++){
+			this.tail[i] = this.tail[i+1];
+		}
+
+		this.tail[this.total - 1] = { x: this.position[0], y: this.position[1] };
+
 		if(direction === "Right"){
 			x = this.position[0] + this.velocity;
-			let newPosition = [x, this.position[1]];
+			newPosition = [x, this.position[1]];
 			this.position = newPosition;
 		}else if(direction === "Left"){
 			x = this.position[0] - this.velocity;
