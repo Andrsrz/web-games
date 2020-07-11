@@ -22,9 +22,24 @@ class Snake{
 	}
 
 	move(direction){
+		let x = 0;
+		let y = 0;
+		let newPosition = [];
 		if(direction === "Right"){
-			let x = this.position[0] + this.velocity;
+			x = this.position[0] + this.velocity;
 			let newPosition = [x, this.position[1]];
+			this.position = newPosition;
+		}else if(direction === "Left"){
+			x = this.position[0] - this.velocity;
+			newPosition = [x, this.position[1]];
+			this.position = newPosition;
+		}else if(direction === "Up"){
+			y = this.position[1] - this.velocity;
+			newPosition = [this.position[0], y];
+			this.position = newPosition;
+		}else if(direction === "Down"){
+			y = this.position[1] + this.velocity;
+			newPosition = [this.position[0], y];
 			this.position = newPosition;
 		}
 	}

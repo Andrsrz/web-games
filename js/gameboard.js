@@ -4,6 +4,7 @@ const Gameboard = (() => {
 	var myCanvas;
 	var myContext;
 	var player;
+	var direction = "Right";
 
 	const loadGameboard = () => {
 		myCanvas = document.getElementById("myCanvas");
@@ -41,6 +42,20 @@ const Gameboard = (() => {
 		}
 	}
 
+	const keyDownHandler = (e) => {
+		if(e.key == "Right" || e.key == "ArrowRight") {
+			direction = "Right";
+		}else if(e.key == "Left" || e.key == "ArrowLeft") {
+			direction = "Left";
+		}else if(e.key == "Up" || e.key == "ArrowUp") {
+			direction = "Up";
+		}else if(e.key == "Down" || e.key == "ArrowDown") {
+			direction = "Down";
+		}
+	}
+
+	document.addEventListener("keydown", keyDownHandler, false);
+
 	const draw = () => {
 		/* Check game over. */
 		if(isGameover()){
@@ -53,7 +68,7 @@ const Gameboard = (() => {
 						   player.getSize()[0],
 						   player.getSize()[1]);
 		/* Update position. Moving to the right. */
-		player.move("Right");
+		player.move(direction);
 	}
 
 	const pageLoaded = () => {
