@@ -48,6 +48,23 @@ const Gameboard = (() => {
 		}
 	}
 
+	/* We need to check wether or no the player is the fruit's coordinates */
+	const detectCollision = () => {
+		for(let fruitXCoord = fruit.getPosition()[0];
+			fruitXCoord < fruit.getPosition()[0] + fruit.getSize()[0];
+			fruitXCoord++){
+			for(let fruitYCoord = fruit.getPosition()[1];
+				fruitYCoord < fruit.getPosition()[1] + fruit.getSize()[1];
+				fruitYCoord++){
+				if((player.getPosition()[0] === fruitXCoord &&
+				   player.getPosition()[1] === fruitYCoord) ||
+				   (player.getPosition()[0] + player.getSize()[0] === fruitXCoord &&
+					player.getPosition()[1] + player.getSize()[1] === fruitYCoord))
+					loadFruit();
+			}
+		}
+	}
+
 	const keyDownHandler = (e) => {
 		if(e.key == "Right" || e.key == "ArrowRight") {
 			direction = "Right";
@@ -70,6 +87,7 @@ const Gameboard = (() => {
 						   player.getSize()[1]);
 		/* Update position. Moving to the right. */
 		player.move(direction);
+		detectCollision();
 	}
 
 	const drawFruit = () => {

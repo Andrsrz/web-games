@@ -3,4 +3,8 @@ class Fruit{
 		this.size = [15, 15];
 		this.position = position ? position : [];
 	}
+
+	getPosition(){
+		return this.position;
+	}
 }
