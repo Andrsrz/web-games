@@ -25,16 +25,25 @@ const Gameboard = (() => {
 		return position;
 	}
 
-	const draw = () => {
-		player = Snake();
+	const loadPlayer = () => {
+		player = new Snake();
 		player.setPosition(getRandomPositon(player.getSize()));
-		myContext.fillRect(player.getPosition()[0], player.getPosition()[1], player.getSize()[0], player.getSize()[1]);
+	}
+
+	const draw = () => {
+		myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+		myContext.fillRect(player.getPosition()[0],
+						   player.getPosition()[1],
+						   player.getSize()[0],
+						   player.getSize()[1]);
+		/* Update position. Moving to the right. */
+		player.move("Right");
 	}
 
 	const pageLoaded = () => {
-		console.log("Hello");
 		loadGameboard();
-		draw();
+		loadPlayer();
+		// setInterval(draw, 10);
 	}
 
 	return {pageLoaded};
