@@ -4,6 +4,7 @@ const Gameboard = (() => {
 	var myCanvas;
 	var myContext;
 	var player;
+	var fruit;
 	var direction = "Right";
 
 	const loadGameboard = () => {
@@ -29,6 +30,11 @@ const Gameboard = (() => {
 	const loadPlayer = () => {
 		player = new Snake();
 		player.setPosition(getRandomPositon(player.getSize()));
+	}
+
+	const loadFruit = () => {
+		fruit = new Snake();
+		fruit.setPosition(getRandomPositon(fruit.getSize()));
 	}
 
 	const isGameover = () => {
@@ -57,12 +63,21 @@ const Gameboard = (() => {
 	document.addEventListener("keydown", keyDownHandler, false);
 
 	const drawPlayer = () => {
+		myContext.fillStyle = "#333333";
 		myContext.fillRect(player.getPosition()[0],
 						   player.getPosition()[1],
 						   player.getSize()[0],
 						   player.getSize()[1]);
 		/* Update position. Moving to the right. */
 		player.move(direction);
+	}
+
+	const drawFruit = () => {
+		myContext.fillStyle = "#FF0000";
+		myContext.fillRect(fruit.getPosition()[0],
+						   fruit.getPosition()[1],
+						   fruit.getSize()[0],
+						   fruit.getSize()[1]);
 	}
 
 	const draw = () => {
@@ -72,12 +87,14 @@ const Gameboard = (() => {
 			document.location.reload();
 		}
 		myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+		drawFruit();
 		drawPlayer();
 	}
 
 	const pageLoaded = () => {
 		loadGameboard();
 		loadPlayer();
+		loadFruit();
 		setInterval(draw, 10);
 	}
 
